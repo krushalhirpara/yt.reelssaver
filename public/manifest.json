@@ -1,0 +1,25 @@
+{
+  "name": "ytDownloader Pro - 4K Video & MP3 Downloader",
+  "short_name": "ytDownloader",
+  "description": "Free high-speed 4K UHD YouTube video downloader and 320kbps MP3 audio converter.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff0037",
+  "orientation": "portrait-primary",
+  "categories": ["utilities", "multimedia", "entertainment"],
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

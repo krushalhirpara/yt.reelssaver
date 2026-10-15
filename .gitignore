@@ -1,0 +1,17 @@
+node_modules
+release
+test.js
+.*
+!/.gitignore
+todo.txt
+ffmpeg*
+*.exe
+ytdlp*
+downloads/
+generated-sources.json
+ffmpeg.patch
+deno*
+node.exe
+node
+!ffmpeg.png
+test-results
