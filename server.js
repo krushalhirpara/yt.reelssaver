@@ -25,7 +25,7 @@ app.get("/sitemap.xml", (req, res) => {
     <priority>1.0</priority>
     <image:image>
       <image:loc>${host}/icon.png</image:loc>
-      <image:title>ytDownloader Pro - 4K Video &amp; MP3 Downloader</image:title>
+      <image:title>yt.reelssaver - Free YouTube &amp; Reels Video Downloader (4K MP4 &amp; MP3)</image:title>
     </image:image>
   </url>
 </urlset>`;
@@ -463,7 +463,7 @@ app.post("/api/open-downloads", (req, res) => {
 
 app.listen(PORT, "0.0.0.0", () => {
 	console.log(`====================================================`);
-	console.log(` ytDownloader Web Suite is LIVE on:`);
+	console.log(` yt.reelssaver Web Suite is LIVE on:`);
 	console.log(` 👉 http://localhost:${PORT}`);
 	console.log(` 👉 http://127.0.0.1:${PORT}`);
 	console.log(` Downloads stored in: ${DOWNLOADS_DIR}`);

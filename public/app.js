@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Comprehensive Worldwide Languages Dictionary with Content & Policy Translations
   const translations = {
     gu: {
-      brandSub: "વિડિયો અને ઓડિયો ડાઉનલોડર વેબ એપ્લિકેશન",
-      heroTitle: "કોઈપણ વિડિયો અથવા ઓડિયો ડાઉનલોડ કરો",
-      heroSubtitle: "કોઈપણ YouTube, Instagram, Twitter અથવા Vimeo લિંક અહીં પેસ્ટ કરો",
+      brandSub: "YouTube વિડિયો, રીલ્સ અને MP3 ડાઉનલોડર",
+      heroTitle: "YouTube વિડિયો અને રીલ્સ ડાઉનલોડ કરો",
+      heroSubtitle: "કોઈપણ YouTube, Instagram Reels, Shorts, Twitter અથવા Facebook લિંક અહીં પેસ્ટ કરો",
       inputPlaceholder: "અહીં લિંક પેસ્ટ કરો: https://www.youtube.com/watch?v=...",
       pasteBtn: "પેસ્ટ",
       downloadBtn: "ડાઉનલોડ",
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       faqHeading: "વારંવાર પૂછાતા પ્રશ્નો (FAQ)",
       faqSubheading: "તમારા પ્રશ્નોના સામાન્ય જવાબો",
       faq1Q: "શું આ સર્વિસ તદ્દન મફત છે?",
-      faq1A: "હા, ytDownloader સંપૂર્ણપણે મફત છે. કોઈ સબ્સ્ક્રિપ્શન કે ચુકવણીની જરૂર નથી.",
+      faq1A: "હા, yt.reelssaver (ReelsSaver) સંપૂર્ણપણે મફત છે. કોઈ સબ્સ્ક્રિપ્શન કે ચુકવણીની જરૂર નથી.",
       faq2Q: "હું કયા ફોર્મેટમાં વિડિયો ડાઉનલોડ કરી શકું?",
       faq2A: "તમે MP4 (4K, 1080p, 720p, 480p) વિડિયો તેમજ હાઇ ક્વોલિટી MP3 (320kbps) અને M4A ઓડિયો ડાઉનલોડ કરી શકો છો.",
       faq3Q: "શું હું મોબાઇલ ફોનમાં પણ આ વાપરી શકું છું?",
@@ -74,9 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
       disclaimer: "આ સાધન માત્ર વ્યક્તિગત અને શૈક્ષણિક ઉપયોગ માટે છે. કૉપિરાઇટ નિયમોનું સન્માન કરો."
     },
     en: {
-      brandSub: "Universal Video & Audio Downloader Suite",
-      heroTitle: "Download Any Video or Audio",
-      heroSubtitle: "Paste any YouTube, Instagram, Twitter, Vimeo or TikTok link below",
+      brandSub: "Universal YouTube Video & Reels Downloader Suite",
+      heroTitle: "Download YouTube Videos & Instagram Reels",
+      heroSubtitle: "Paste any YouTube, Instagram Reels, Shorts, Twitter, Vimeo or TikTok link below",
       inputPlaceholder: "https://www.youtube.com/watch?v=...",
       pasteBtn: "Paste",
       downloadBtn: "Download",
@@ -126,16 +126,16 @@ document.addEventListener("DOMContentLoaded", () => {
       platformsHeading: "Supported Platforms",
       platformsSubheading: "Download videos and audio from hundreds of top web platforms",
       faqHeading: "Frequently Asked Questions (FAQ)",
-      faqSubheading: "Answers to common questions about ytDownloader",
+      faqSubheading: "Answers to common questions about yt.reelssaver",
       faq1Q: "Is this service completely free?",
-      faq1A: "Yes, ytDownloader is 100% free with no limits, hidden fees, or subscription required.",
+      faq1A: "Yes, yt.reelssaver (ReelsSaver) is 100% free with no limits, hidden fees, or subscription required.",
       faq2Q: "Which formats and resolutions can I download?",
       faq2A: "You can download MP4 videos in 4K, 1080p, 720p, and 480p, as well as MP3 and M4A audio.",
       faq3Q: "Can I use this on my mobile phone?",
       faq3A: "Yes, our web app is fully responsive and optimized for iPhone, Android, and tablets.",
       faq4Q: "Where are downloaded files saved?",
       faq4A: "Files are saved directly to your device's default 'Downloads' folder.",
-      footerDesc: "Your trusted high-speed downloader for video and audio content worldwide.",
+      footerDesc: "Your trusted high-speed downloader for YouTube videos, Instagram Reels, and audio content.",
       formatsHeading: "Formats",
       policyHeading: "Legal & Policies",
       privacyLink: "Privacy Policy",
@@ -196,9 +196,9 @@ document.addEventListener("DOMContentLoaded", () => {
       platformsHeading: "समर्थित प्लेटफॉर्म",
       platformsSubheading: "सैकड़ों लोकप्रिय वेबसाइटों से वीडियो डाउनलोड करें",
       faqHeading: "अक्सर पूछे जाने वाले सवाल (FAQ)",
-      faqSubheading: "ytDownloader से जुड़े सामान्य उत्तर",
+      faqSubheading: "yt.reelssaver से जुड़े सामान्य उत्तर",
       faq1Q: "क्या यह सेवा पूरी तरह मुफ्त है?",
-      faq1A: "हाँ, ytDownloader 100% मुफ्त है। कोई शुल्क नहीं है।",
+      faq1A: "हाँ, yt.reelssaver 100% मुफ्त है। कोई शुल्क नहीं है।",
       faq2Q: "मैं किन फॉर्मेट्स में डाउनलोड कर सकता हूँ?",
       faq2A: "आप MP4 (4K, 1080p) वीडियो और MP3 ऑडियो डाउनलोड कर सकते हैं।",
       faq3Q: "क्या यह मोबाइल फोन पर काम करता है?",
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Privacy Policy",
       content: `
         <h4>1. Information We Do Not Collect</h4>
-        <p>ytDownloader Pro values user privacy. We do not require registration, login, email addresses, or personal information. We do not track your downloads, IP address history, or browsing habits.</p>
+        <p>yt.reelssaver (ReelsSaver) values user privacy. We do not require registration, login, email addresses, or personal information. We do not track your downloads, IP address history, or browsing habits.</p>
         <h4>2. Data Processing</h4>
         <p>When you enter a URL, it is processed locally through yt-dlp to retrieve format options and download media. All file transfers occur directly between your device and the target media host.</p>
         <h4>3. Cookies and Local Storage</h4>
@@ -235,18 +235,18 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Terms of Service",
       content: `
         <h4>1. Acceptance of Terms</h4>
-        <p>By using ytDownloader Pro, you acknowledge and agree to comply with these Terms of Service and all applicable local, national, and international laws.</p>
+        <p>By using yt.reelssaver (ReelsSaver), you acknowledge and agree to comply with these Terms of Service and all applicable local, national, and international laws.</p>
         <h4>2. Permitted Use</h4>
         <p>This service is provided strictly for personal, non-commercial, and educational backup purposes. You agree not to distribute or monetize copyrighted content obtained through this service without authorization from the copyright holder.</p>
         <h4>3. Disclaimer of Warranties</h4>
-        <p>ytDownloader Pro is provided on an "as-is" and "as-available" basis without warranties of any kind. We do not host or store any media on public third-party servers.</p>
+        <p>yt.reelssaver is provided on an "as-is" and "as-available" basis without warranties of any kind. We do not host or store any media on public third-party servers.</p>
       `
     },
     dmca: {
       title: "Copyright & DMCA Disclaimer",
       content: `
         <h4>1. Respect for Intellectual Property</h4>
-        <p>ytDownloader Pro strictly respects the intellectual property rights of content creators, musicians, and artists worldwide.</p>
+        <p>yt.reelssaver (ReelsSaver) strictly respects the intellectual property rights of content creators, musicians, and artists worldwide.</p>
         <h4>2. Non-Hosting Notice</h4>
         <p>This web service does not host, upload, or index any copyrighted audio or video files. All media is fetched in real-time from original sources using open-source utilities (yt-dlp).</p>
         <h4>3. DMCA Inquiries</h4>
@@ -257,9 +257,9 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Contact & Support",
       content: `
         <h4>Contact Us</h4>
-        <p>Have questions, suggestions, or need technical assistance with ytDownloader Pro? Feel free to reach out to our team:</p>
+        <p>Have questions, suggestions, or need technical assistance with yt.reelssaver? Feel free to reach out to our team:</p>
         <ul>
-          <li><strong>Email:</strong> support@ytdownloader.local</li>
+          <li><strong>Email:</strong> support@reelssaver.local</li>
           <li><strong>Engine Status:</strong> yt-dlp & FFmpeg High Speed</li>
         </ul>
         <p>We respond to all genuine inquiries and feedback to improve our user experience.</p>

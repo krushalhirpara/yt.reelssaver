@@ -1,7 +1,7 @@
 {
-  "name": "ytDownloader Pro - 4K Video & MP3 Downloader",
-  "short_name": "ytDownloader",
-  "description": "Free high-speed 4K UHD YouTube video downloader and 320kbps MP3 audio converter.",
+  "name": "yt.reelssaver - YouTube Video Downloader & Reels Saver",
+  "short_name": "yt.reelssaver",
+  "description": "Free high-speed YouTube video downloader, Instagram Reels saver, and 320kbps MP3 audio converter on ReelsSaver.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
