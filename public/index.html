@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="en">
 
 <head>
   <!-- Google tag (gtag.js) -->
@@ -50,7 +50,7 @@
   <meta property="og:image:height" content="512">
   <meta property="og:image:alt" content="yt.reelssaver Logo">
   <meta property="og:site_name" content="yt.reelssaver">
-  <meta property="og:locale" content="gu_IN">
+  <meta property="og:locale" content="en_US">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
@@ -276,49 +276,20 @@
         </div>
         <div class="brand-text">
           <div class="brand-title">yt.<span class="gradient-text">reelssaver</span></div>
-          <div class="brand-sub" id="i18n-brand-sub" data-i18n="brandSub">YouTube વિડિયો, રીલ્સ અને MP3 ડાઉનલોડર</div>
+          <div class="brand-sub" id="i18n-brand-sub" data-i18n="brandSub">Free YouTube Video & Shorts Downloader</div>
         </div>
       </div>
 
-      <!-- Header Right: Worldwide Language Selector -->
+      <!-- Header Right: English Language Indicator -->
       <div class="header-right">
-        <div class="lang-selector-wrapper">
+        <div class="lang-selector-wrapper" style="cursor: default;" title="English (Only)">
           <svg viewBox="0 0 24 24" class="lang-icon" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10" />
             <line x1="2" y1="12" x2="22" y2="12" />
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
           </svg>
-          <select id="language-select" class="lang-select" aria-label="Select Worldwide Language">
-            <option value="gu" selected>ગુજરાતી (Gujarati)</option>
-            <option value="en">English (English)</option>
-            <option value="hi">हिन्दी (Hindi)</option>
-            <option value="es">Español (Spanish)</option>
-            <option value="fr">Français (French)</option>
-            <option value="de">Deutsch (German)</option>
-            <option value="it">Italiano (Italian)</option>
-            <option value="pt">Português (Portuguese)</option>
-            <option value="ru">Русский (Russian)</option>
-            <option value="zh">中文 (Chinese)</option>
-            <option value="ja">日本語 (Japanese)</option>
-            <option value="ko">한국어 (Korean)</option>
-            <option value="ar">العربية (Arabic)</option>
-            <option value="tr">Türkçe (Turkish)</option>
-            <option value="bn">বাংলা (Bengali)</option>
-            <option value="mr">मराठी (Marathi)</option>
-            <option value="ta">தமிழ் (Tamil)</option>
-            <option value="te">తెలుగు (Telugu)</option>
-            <option value="ur">اردو (Urdu)</option>
-            <option value="id">Bahasa Indonesia (Indonesian)</option>
-            <option value="vi">Tiếng Việt (Vietnamese)</option>
-            <option value="nl">Nederlands (Dutch)</option>
-            <option value="pl">Polski (Polish)</option>
-            <option value="uk">Українська (Ukrainian)</option>
-            <option value="fa">فارسی (Persian)</option>
-            <option value="sv">Svenska (Swedish)</option>
-            <option value="el">Ελληνικά (Greek)</option>
-            <option value="th">ไทย (Thai)</option>
-          </select>
+          <span style="font-size: 0.85rem; font-weight: 600; color: #475569; padding-right: 4px;">English</span>
         </div>
       </div>
     </div>
@@ -351,7 +322,7 @@
               <path fill="none" stroke="currentColor" stroke-width="2"
                 d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
             </svg>
-            <span id="i18n-paste-btn" data-i18n="pasteBtn">પેસ્ટ</span>
+            <span id="i18n-paste-btn" data-i18n="pasteBtn">Paste</span>
           </button>
           <!-- Download Button -->
           <button type="submit" id="btn-inspect-url" class="btn-primary-gradient">
@@ -359,14 +330,14 @@
               <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
                 d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
             </svg>
-            <span id="btn-inspect-text" data-i18n="downloadBtn">ડાઉનલોડ</span>
+            <span id="btn-inspect-text" data-i18n="downloadBtn">Download</span>
           </button>
         </div>
       </form>
 
       <!-- Quick Demo Links -->
       <div class="quick-links-row">
-        <span class="quick-links-label" id="i18n-quick-samples" data-i18n="quickSamples">સેમ્પલ લિંક્સ:</span>
+        <span class="quick-links-label" id="i18n-quick-samples" data-i18n="quickSamples">Sample Links:</span>
         <button class="quick-chip" data-sample="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Rick Astley 4K</button>
         <button class="quick-chip" data-sample="https://www.youtube.com/watch?v=jNQXAC9IVRw">Me at the zoo</button>
         <button class="quick-chip" data-sample="https://www.youtube.com/watch?v=L_LUpnjgPso">Lofi Hip Hop</button>
@@ -376,10 +347,8 @@
     <!-- Loading State Card -->
     <div class="glass-card loading-card" id="inspect-loading" style="display: none;">
       <div class="loader-spinner"></div>
-      <div class="loading-title" id="i18n-analyzing-title" data-i18n="analyzingTitle">વિડિયો વિગતો તપાસી રહ્યું છે...
-      </div>
-      <div class="loading-sub" id="i18n-analyzing-sub" data-i18n="analyzingSub">yt-dlp દ્વારા વિડિયો ક્વોલિટી,
-        રીઝોલ્યુશન અને ઓડિયો ફોર્મેટ્સ મેળવી રહ્યું છે</div>
+      <div class="loading-title" id="i18n-analyzing-title" data-i18n="analyzingTitle">Analyzing Video Details...</div>
+      <div class="loading-sub" id="i18n-analyzing-sub" data-i18n="analyzingSub">Fetching video qualities, resolutions, and audio formats with yt-dlp</div>
     </div>
 
     <!-- Error State Card -->
@@ -432,21 +401,20 @@
                 <rect x="1" y="5" width="15" height="14" rx="2" ry="2" fill="none" stroke="currentColor"
                   stroke-width="2" />
               </svg>
-              <span id="i18n-video-tab" data-i18n="videoTab">વિડિયો (MP4)</span>
+              <span id="i18n-video-tab" data-i18n="videoTab">Video (MP4)</span>
             </button>
             <button class="format-toggle-btn" id="btn-toggle-audio">
               <svg viewBox="0 0 24 24" class="fmt-icon" aria-hidden="true">
                 <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                   d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm12 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
               </svg>
-              <span id="i18n-audio-tab" data-i18n="audioTab">ઓડિયો (MP3 / M4A)</span>
+              <span id="i18n-audio-tab" data-i18n="audioTab">Audio (MP3 / M4A)</span>
             </button>
           </div>
 
           <!-- Video Quality Options Grid -->
           <div class="quality-selector-group" id="video-quality-group">
-            <label class="group-label" id="i18n-select-video-res" data-i18n="selectVideoRes">વિડિયો ક્વોલિટી પસંદ
-              કરો:</label>
+            <label class="group-label" id="i18n-select-video-res" data-i18n="selectVideoRes">Select Video Quality:</label>
             <div class="quality-chips-grid" id="video-chips-container">
               <!-- Dynamically populated -->
             </div>
@@ -454,8 +422,7 @@
 
           <!-- Audio Format Options Grid -->
           <div class="quality-selector-group" id="audio-quality-group" style="display: none;">
-            <label class="group-label" id="i18n-select-audio-fmt" data-i18n="selectAudioFmt">ઓડિયો ફોર્મેટ અને ક્વોલિટી
-              પસંદ કરો:</label>
+            <label class="group-label" id="i18n-select-audio-fmt" data-i18n="selectAudioFmt">Select Audio Format & Quality:</label>
             <div class="quality-chips-grid" id="audio-chips-container">
               <button type="button" class="quality-chip active" data-quality="mp3">
                 <span class="q-main">MP3</span>
@@ -483,7 +450,7 @@
                 <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                   stroke-linejoin="round" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
               </svg>
-              <span id="download-btn-label" data-i18n="downloadNowVideo">વિડિયો ડાઉનલોડ કરો (MP4)</span>
+              <span id="download-btn-label" data-i18n="downloadNowVideo">Download Video (MP4)</span>
             </button>
           </div>
         </div>
@@ -495,12 +462,12 @@
       <div class="job-header">
         <div class="job-status-indicator">
           <span class="job-pulse-dot" id="job-pulse"></span>
-          <span class="job-status-text" id="job-status-text">ડાઉનલોડ થઈ રહ્યું છે...</span>
+          <span class="job-status-text" id="job-status-text">Downloading...</span>
         </div>
         <div class="job-metrics">
-          <span class="metric-pill" id="metric-speed">ઝડપ: --</span>
-          <span class="metric-pill" id="metric-eta">બાકી સમય: --</span>
-          <span class="metric-pill" id="metric-size">કદ: --</span>
+          <span class="metric-pill" id="metric-speed">Speed: --</span>
+          <span class="metric-pill" id="metric-eta">ETA: --</span>
+          <span class="metric-pill" id="metric-size">Size: --</span>
         </div>
       </div>
 
@@ -510,10 +477,9 @@
 
       <div class="job-footer">
         <span class="progress-percentage" id="job-progress-num">0%</span>
-        <span class="job-filename" id="job-filename-text">વિડિયો પ્રોસેસિંગ...</span>
+        <span class="job-filename" id="job-filename-text">Processing media...</span>
         <div class="job-success-actions" id="job-success-actions" style="display: none;">
-          <a href="#" id="btn-job-direct-download" class="btn-success-action" download data-i18n="saveFile">ફાઇલ સેવ
-            કરો</a>
+          <a href="#" id="btn-job-direct-download" class="btn-success-action" download data-i18n="saveFile">Save File</a>
           <button type="button" id="btn-job-close" class="btn-secondary-action" style="padding: 7px 14px;">✕</button>
         </div>
       </div>
@@ -522,34 +488,30 @@
     <!-- SECTION 1: HOW TO DOWNLOAD (3 STEPS) -->
     <section class="content-section" id="section-how-to">
       <div class="section-title-wrap">
-        <h2 class="section-heading" id="i18n-how-heading" data-i18n="howHeading">વિડિયો કેવી રીતે ડાઉનલોડ કરવો?</h2>
-        <p class="section-subheading" id="i18n-how-subheading" data-i18n="howSubheading">સરળ 3 પગલાંમાં કોઈપણ વિડિયો
-          તમારા ફોન અથવા કમ્પ્યુટરમાં સેવ કરો</p>
+        <h2 class="section-heading" id="i18n-how-heading" data-i18n="howHeading">How to Download YouTube Videos?</h2>
+        <p class="section-subheading" id="i18n-how-subheading" data-i18n="howSubheading">Save any YouTube video or Shorts to your device in 3 easy steps</p>
       </div>
 
       <div class="steps-grid">
         <div class="step-card" id="step-1">
           <div class="step-badge">1</div>
           <div class="step-icon-box">🔗</div>
-          <h3 class="step-title" id="i18n-step1-title" data-i18n="step1Title">લિંક કૉપી કરો</h3>
-          <p class="step-desc" id="i18n-step1-desc" data-i18n="step1Desc">YouTube, Instagram અથવા અન્ય કોઈપણ સાઇટ પરથી
-            વિડિયોની લિંક (URL) કૉપી કરો.</p>
+          <h3 class="step-title" id="i18n-step1-title" data-i18n="step1Title">Copy Video Link</h3>
+          <p class="step-desc" id="i18n-step1-desc" data-i18n="step1Desc">Copy the link (URL) of the video or Shorts from YouTube.</p>
         </div>
 
         <div class="step-card" id="step-2">
           <div class="step-badge">2</div>
           <div class="step-icon-box">⚡</div>
-          <h3 class="step-title" id="i18n-step2-title" data-i18n="step2Title">પેસ્ટ કરો અને ગુણવત્તા પસંદ કરો</h3>
-          <p class="step-desc" id="i18n-step2-desc" data-i18n="step2Desc">અહીં બોક્સમાં લિંક પેસ્ટ કરી 'ડાઉનલોડ' દબાવો
-            અને મનપસંદ ક્વોલિટી (4K, 1080p અથવા MP3) પસંદ કરો.</p>
+          <h3 class="step-title" id="i18n-step2-title" data-i18n="step2Title">Paste & Select Quality</h3>
+          <p class="step-desc" id="i18n-step2-desc" data-i18n="step2Desc">Paste the link into the box above, click 'Download', and pick your preferred quality (4K, 1080p, or MP3).</p>
         </div>
 
         <div class="step-card" id="step-3">
           <div class="step-badge">3</div>
           <div class="step-icon-box">💾</div>
-          <h3 class="step-title" id="i18n-step3-title" data-i18n="step3Title">ડાઉનલોડ કરો અને સેવ કરો</h3>
-          <p class="step-desc" id="i18n-step3-desc" data-i18n="step3Desc">ડાઉનલોડ પૂર્ણ થતાં જ ફાઇલ તમારા ઉપકરણમાં સીધી
-            સેવ થઈ જશે.</p>
+          <h3 class="step-title" id="i18n-step3-title" data-i18n="step3Title">Download & Save</h3>
+          <p class="step-desc" id="i18n-step3-desc" data-i18n="step3Desc">Once processing finishes, your file will download directly to your computer or phone.</p>
         </div>
       </div>
     </section>
@@ -557,52 +519,45 @@
     <!-- SECTION 2: KEY FEATURES -->
     <section class="content-section" id="section-features">
       <div class="section-title-wrap">
-        <h2 class="section-heading" id="i18n-features-heading" data-i18n="featuresHeading">મુખ્ય વિશેષતાઓ</h2>
-        <p class="section-subheading" id="i18n-features-subheading" data-i18n="featuresSubheading">ઝડપી, સલામત અને
-          અમર્યાદિત ફ્રી ડાઉનલોડિંગ સુવિધા</p>
+        <h2 class="section-heading" id="i18n-features-heading" data-i18n="featuresHeading">Key Features</h2>
+        <p class="section-subheading" id="i18n-features-subheading" data-i18n="featuresSubheading">Fast, safe, and unlimited free video downloading suite</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon-wrapper red">🚀</div>
-          <h3 class="feature-title" id="i18n-feat1-title" data-i18n="feat1Title">અલ્ટ્રા ફાસ્ટ સ્પીડ</h3>
-          <p class="feature-desc" id="i18n-feat1-desc" data-i18n="feat1Desc">હાઈ-સ્પીડ ડાઉનલોડ એન્જિન સાથે વિડિયો માત્ર
-            ગણતરીની સેકન્ડોમાં ડાઉનલોડ કરો.</p>
+          <h3 class="feature-title" id="i18n-feat1-title" data-i18n="feat1Title">Ultra Fast Speed</h3>
+          <p class="feature-desc" id="i18n-feat1-desc" data-i18n="feat1Desc">Download videos in seconds with our high-speed multi-threaded engine.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon-wrapper blue">🎬</div>
-          <h3 class="feature-title" id="i18n-feat2-title" data-i18n="feat2Title">4K અને Full HD સપોર્ટ</h3>
-          <p class="feature-desc" id="i18n-feat2-desc" data-i18n="feat2Desc">4K, 1440p, 1080p 60fps અને 720p જેવી તમામ
-            હાઇ ક્વોલિટીમાં વિડિયો ઉપલબ્ધ.</p>
+          <h3 class="feature-title" id="i18n-feat2-title" data-i18n="feat2Title">4K & Full HD Support</h3>
+          <p class="feature-desc" id="i18n-feat2-desc" data-i18n="feat2Desc">Crystal-clear downloads in 4K UHD, 1440p, 1080p 60fps, and 720p HD.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon-wrapper green">🎵</div>
-          <h3 class="feature-title" id="i18n-feat3-title" data-i18n="feat3Title">ઓડિયો MP3 એક્સ્ટ્રેક્ટર</h3>
-          <p class="feature-desc" id="i18n-feat3-desc" data-i18n="feat3Desc">કોઈપણ વિડિયોમાંથી 320kbps ક્રિસ્ટલ ક્લિયર
-            MP3 અથવા M4A ઓડિયો અલગ કરો.</p>
+          <h3 class="feature-title" id="i18n-feat3-title" data-i18n="feat3Title">Audio MP3 Extractor</h3>
+          <p class="feature-desc" id="i18n-feat3-desc" data-i18n="feat3Desc">Extract high-fidelity 320kbps MP3 or M4A audio from any video source.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon-wrapper purple">📱</div>
-          <h3 class="feature-title" id="i18n-feat4-title" data-i18n="feat4Title">તમામ ડિવાઇસ સપોર્ટ</h3>
-          <p class="feature-desc" id="i18n-feat4-desc" data-i18n="feat4Desc">મોબાઇલ, ટેબ્લેટ અને કમ્પ્યુટર ત્રણેયમાં
-            સરળતાથી અને ઝડપથી કામ કરે છે.</p>
+          <h3 class="feature-title" id="i18n-feat4-title" data-i18n="feat4Title">All Devices Supported</h3>
+          <p class="feature-desc" id="i18n-feat4-desc" data-i18n="feat4Desc">Works smoothly on mobile phones, tablets, and desktop computers.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon-wrapper amber">🔒</div>
-          <h3 class="feature-title" id="i18n-feat5-title" data-i18n="feat5Title">100% સુરક્ષિત અને જાહેરાત મુક્ત</h3>
-          <p class="feature-desc" id="i18n-feat5-desc" data-i18n="feat5Desc">કોઈપણ પ્રકારની પોપ-અપ એડ્સ કે વાયરસ વિના
-            સંપૂર્ણ સુરક્ષિત ડાઉનલોડ.</p>
+          <h3 class="feature-title" id="i18n-feat5-title" data-i18n="feat5Title">100% Safe & Ad-Free</h3>
+          <p class="feature-desc" id="i18n-feat5-desc" data-i18n="feat5Desc">Completely safe downloads with zero annoying pop-ups or malware.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon-wrapper cyan">♾️</div>
-          <h3 class="feature-title" id="i18n-feat6-title" data-i18n="feat6Title">સંપૂર્ણ મફત અને અનલિમિટેડ</h3>
-          <p class="feature-desc" id="i18n-feat6-desc" data-i18n="feat6Desc">કોઈ રજીસ્ટ્રેશન કે લોગિનની જરૂર નથી. ગમે
-            તેટલા વિડિયો મફતમાં ડાઉનલોડ કરો.</p>
+          <h3 class="feature-title" id="i18n-feat6-title" data-i18n="feat6Title">Free & Unlimited</h3>
+          <p class="feature-desc" id="i18n-feat6-desc" data-i18n="feat6Desc">No registration or account required. Download unlimited videos for free.</p>
         </div>
       </div>
     </section>
@@ -610,9 +565,8 @@
     <!-- SECTION 3: SUPPORTED PLATFORMS SHOWCASE -->
     <section class="content-section" id="section-platforms">
       <div class="section-title-wrap">
-        <h2 class="section-heading" id="i18n-platforms-heading" data-i18n="platformsHeading">સપોર્ટેડ પ્લેટફોર્મ્સ</h2>
-        <p class="section-subheading" id="i18n-platforms-subheading" data-i18n="platformsSubheading">સેંકડો લોકપ્રિય
-          સાઇટ્સ પરથી વિડિયો અને ઓડિયો ડાઉનલોડ કરો</p>
+        <h2 class="section-heading" id="i18n-platforms-heading" data-i18n="platformsHeading">Supported Platforms</h2>
+        <p class="section-subheading" id="i18n-platforms-subheading" data-i18n="platformsSubheading">Download videos and audio from popular media websites</p>
       </div>
 
       <div class="platforms-row">
@@ -915,16 +869,16 @@
             </div>
             <span>yt.<span class="gradient-text">reelssaver</span></span>
           </div>
-          <p class="footer-desc" id="i18n-footer-desc" data-i18n="footerDesc">YouTube વિડિયો, રીલ્સ અને ઉચ્ચ ગુણવત્તાવાળા ઓડિયો ડાઉનલોડ માટેનું વિશ્વસનીય પ્લેટફોર્મ.</p>
+          <p class="footer-desc" id="i18n-footer-desc" data-i18n="footerDesc">The trusted online platform to download YouTube videos and Shorts in 4K MP4 and 320kbps MP3.</p>
         </div>
 
         <!-- Col 2: Supported Formats -->
         <div class="footer-col">
-          <h4 class="footer-heading" id="i18n-formats-heading" data-i18n="formatsHeading">ફોર્મેટ્સ</h4>
+          <h4 class="footer-heading" id="i18n-formats-heading" data-i18n="formatsHeading">Formats</h4>
           <ul class="footer-links">
             <li><span>MP4 Video (4K / 1080p)</span></li>
             <li><span>MP3 Audio (320 kbps)</span></li>
-            <li><span>Instagram Reels MP4</span></li>
+            <li><span>YouTube Shorts MP4</span></li>
             <li><span>M4A AAC Audio</span></li>
             <li><span>WAV Lossless Audio</span></li>
           </ul>
@@ -932,7 +886,7 @@
 
         <!-- Col 3: Policy Pages (As requested) -->
         <div class="footer-col">
-          <h4 class="footer-heading" id="i18n-policy-heading" data-i18n="policyHeading">પોલિસી અને નિયમો</h4>
+          <h4 class="footer-heading" id="i18n-policy-heading" data-i18n="policyHeading">Policies & Legal</h4>
           <ul class="footer-links">
             <li><a href="/privacy-policy" class="footer-nav-link" id="i18n-privacy-link"
                 data-i18n="privacyLink">Privacy Policy</a></li>
@@ -949,7 +903,7 @@
       <!-- Footer Bottom -->
       <div class="footer-bottom">
         <p class="copyright-text">© 2026 yt.reelssaver (ReelsSaver). All rights reserved.</p>
-        <p class="disclaimer-text" id="i18n-disclaimer" data-i18n="disclaimer">આ સાધન માત્ર વ્યક્તિગત અને શૈક્ષણિક ઉપયોગ માટે છે. કૉપિરાઇટ નિયમોનું સન્માન કરો.</p>
+        <p class="disclaimer-text" id="i18n-disclaimer" data-i18n="disclaimer">This tool is for personal and educational use only. Please respect all copyright laws and intellectual property rights.</p>
       </div>
     </div>
   </footer>
