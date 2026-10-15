@@ -424,8 +424,13 @@ document.addEventListener("DOMContentLoaded", () => {
       inspectLoading.style.display = "none";
 
       if (!res.ok || data.error) {
-        document.getElementById("error-title-text").textContent = "Failed to analyze video";
-        document.getElementById("error-details-text").textContent = data.details || data.error || "Please verify the link.";
+        if (res.status === 503 || (data.error && data.error.includes("initializing"))) {
+          document.getElementById("error-title-text").textContent = "Setting Up Download Engine...";
+          document.getElementById("error-details-text").textContent = "The server is preparing the video download tools for the first time. Please wait 10 seconds and click Download again.";
+        } else {
+          document.getElementById("error-title-text").textContent = "Failed to analyze video";
+          document.getElementById("error-details-text").textContent = data.error || data.details || "Please verify the link and try again.";
+        }
         inspectError.style.display = "flex";
         return;
       }
@@ -435,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       inspectLoading.style.display = "none";
       document.getElementById("error-title-text").textContent = "Network error connecting to backend";
-      document.getElementById("error-details-text").textContent = err.message;
+      document.getElementById("error-details-text").textContent = "Could not reach the server. Please check your internet connection and try again.";
       inspectError.style.display = "flex";
     }
   }
