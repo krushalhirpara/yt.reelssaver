@@ -1,6 +1,11 @@
 User-agent: *
 Allow: /
+Allow: /privacy-policy
+Allow: /terms-of-service
+Allow: /dmca
+Allow: /contact
 Disallow: /api/download
 Disallow: /api/open-downloads
+Disallow: /api/file/
 
-Sitemap: http://localhost:5050/sitemap.xml
+Sitemap: https://yt.reelssaver.com/sitemap.xml

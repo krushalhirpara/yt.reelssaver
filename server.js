@@ -14,19 +14,49 @@ app.use(express.json());
 // Dynamic Sitemap generator with current Host / Domain
 app.get("/sitemap.xml", (req, res) => {
 	const host = process.env.SITE_URL || `${req.protocol}://${req.get("host")}`;
+	const today = new Date().toISOString().split("T")[0];
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Homepage -->
   <url>
     <loc>${host}/</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${today}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>${host}/icon.png</image:loc>
       <image:title>yt.reelssaver - Free YouTube &amp; Reels Video Downloader (4K MP4 &amp; MP3)</image:title>
     </image:image>
+  </url>
+  <!-- Privacy Policy -->
+  <url>
+    <loc>${host}/privacy-policy</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Terms of Service -->
+  <url>
+    <loc>${host}/terms-of-service</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- DMCA & Copyright Policy -->
+  <url>
+    <loc>${host}/dmca</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Contact Us -->
+  <url>
+    <loc>${host}/contact</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>`;
 	res.header("Content-Type", "application/xml");
@@ -38,13 +68,35 @@ app.get("/robots.txt", (req, res) => {
 	const host = process.env.SITE_URL || `${req.protocol}://${req.get("host")}`;
 	const robots = `User-agent: *
 Allow: /
+Allow: /privacy-policy
+Allow: /terms-of-service
+Allow: /dmca
+Allow: /contact
 Disallow: /api/download
 Disallow: /api/open-downloads
+Disallow: /api/file/
 
 Sitemap: ${host}/sitemap.xml
 `;
 	res.header("Content-Type", "text/plain");
 	res.send(robots);
+});
+
+// Dedicated Legal & Policy Page Routes
+app.get(["/privacy", "/privacy-policy"], (req, res) => {
+	res.sendFile(path.join(__dirname, "public", "privacy.html"));
+});
+
+app.get(["/terms", "/terms-of-service"], (req, res) => {
+	res.sendFile(path.join(__dirname, "public", "terms.html"));
+});
+
+app.get(["/dmca", "/copyright"], (req, res) => {
+	res.sendFile(path.join(__dirname, "public", "dmca.html"));
+});
+
+app.get(["/contact", "/contact-us"], (req, res) => {
+	res.sendFile(path.join(__dirname, "public", "contact.html"));
 });
 
 app.use("/assets", express.static(path.join(__dirname, "assets")));

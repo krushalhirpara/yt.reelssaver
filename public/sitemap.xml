@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Homepage -->
   <url>
-    <loc>http://localhost:5050/</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://yt.reelssaver.com/</loc>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://yt.reelssaver.com/icon.png</image:loc>
+      <image:title>yt.reelssaver - Free YouTube &amp; Reels Video Downloader (4K MP4 &amp; MP3)</image:title>
+    </image:image>
+  </url>
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://yt.reelssaver.com/privacy-policy</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Terms of Service -->
+  <url>
+    <loc>https://yt.reelssaver.com/terms-of-service</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- DMCA & Copyright Policy -->
+  <url>
+    <loc>https://yt.reelssaver.com/dmca</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Contact Us -->
+  <url>
+    <loc>https://yt.reelssaver.com/contact</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
