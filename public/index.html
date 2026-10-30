@@ -257,6 +257,9 @@
     rel="stylesheet">
 
   <link rel="stylesheet" href="/style.css">
+
+  <!-- MyBid Publisher Ad Code (Publisher ID: #470257) -->
+  <script async src="https://js.mbidadm.com/static/scripts.js" data-admpid="470257"></script>
 </head>
 
 <body class="light-theme">
@@ -295,6 +298,16 @@
     </div>
   </header>
 
+  <!-- ========================================================================= -->
+  <!-- 🎯 AD SLOT 1: Header Top Leaderboard (MyBid Banner 300x100 #2030632)      -->
+  <!-- ========================================================================= -->
+  <div class="ad-banner-wrapper top-leaderboard">
+    <div id="ad-slot-header" class="ad-slot-box ad-leaderboard">
+      <span class="ad-badge-tag">ADVERTISEMENT</span>
+      <div data-banner-id="2030632"></div>
+    </div>
+  </div>
+
   <!-- Main Content Container -->
   <main class="main-container">
 
@@ -303,6 +316,19 @@
       <div class="input-header">
         <h1 class="card-title" id="i18n-hero-title" data-i18n="heroTitle">Download YouTube Videos Now</h1>
         <p class="card-subtitle" id="i18n-hero-subtitle" data-i18n="heroSubtitle">Fast & Free YouTube Video & Shorts Downloader in 4K MP4 & 320kbps MP3</p>
+      </div>
+
+      <!-- Quick Mode Pre-Selector -->
+      <div class="hero-mode-tabs" id="hero-mode-selector">
+        <button type="button" class="hero-mode-pill active" data-mode="all" id="pill-mode-all">
+          <span class="pill-icon">⚡</span> All Formats
+        </button>
+        <button type="button" class="hero-mode-pill" data-mode="video" id="pill-mode-video">
+          <span class="pill-icon">🎬</span> Video (MP4)
+        </button>
+        <button type="button" class="hero-mode-pill" data-mode="audio" id="pill-mode-audio">
+          <span class="pill-icon">🎵</span> Audio (MP3)
+        </button>
       </div>
 
       <form id="url-inspect-form" class="url-input-container">
@@ -314,6 +340,7 @@
         </div>
         <input type="url" id="media-url-input" class="main-url-input" placeholder="Paste YouTube or Shorts link (e.g. https://www.youtube.com/watch?v=...)"
           autocomplete="off" required />
+        <button type="button" id="btn-clear-url" class="btn-clear-input" style="display: none;" title="Clear link">✕</button>
         <div class="input-btn-group">
           <button type="button" id="btn-paste-clipboard" class="btn-secondary-action" title="Paste from Clipboard">
             <svg viewBox="0 0 24 24" class="btn-icon-sm" aria-hidden="true">
@@ -341,6 +368,17 @@
         <button class="quick-chip" data-sample="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Rick Astley 4K</button>
         <button class="quick-chip" data-sample="https://www.youtube.com/watch?v=jNQXAC9IVRw">Me at the zoo</button>
         <button class="quick-chip" data-sample="https://www.youtube.com/watch?v=L_LUpnjgPso">Lofi Hip Hop</button>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- ========================================================================= -->
+    <!-- 🎯 AD SLOT 2: In-Feed Banner (MyBid Banner 300x250 #2030631)              -->
+    <!-- ========================================================================= -->
+    <div class="ad-banner-wrapper in-feed">
+      <div id="ad-slot-after-search" class="ad-slot-box ad-responsive-banner">
+        <span class="ad-badge-tag">ADVERTISEMENT</span>
+        <div data-banner-id="2030631"></div>
       </div>
     </div>
 
@@ -393,7 +431,7 @@
           <h3 class="preview-title" id="preview-title">Video Title</h3>
           <p class="preview-desc" id="preview-desc">Video description snippet...</p>
 
-          <!-- Mode Selector (Video MP4 vs Audio MP3) -->
+          <!-- Format Toggle Tabs (Video vs Audio) -->
           <div class="format-toggle-bar">
             <button class="format-toggle-btn active" id="btn-toggle-video">
               <svg viewBox="0 0 24 24" class="fmt-icon" aria-hidden="true">
@@ -412,47 +450,78 @@
             </button>
           </div>
 
-          <!-- Video Quality Options Grid -->
-          <div class="quality-selector-group" id="video-quality-group">
-            <label class="group-label" id="i18n-select-video-res" data-i18n="selectVideoRes">Select Video Quality:</label>
-            <div class="quality-chips-grid" id="video-chips-container">
-              <!-- Dynamically populated -->
+          <!-- ================================================================= -->
+          <!-- 🎯 AD SLOT 3: In-Result Native Ad (MyBid Banner 300x250 #2030631) -->
+          <!-- ================================================================= -->
+          <div class="ad-banner-wrapper in-result">
+            <div id="ad-slot-preview-native" class="ad-slot-box ad-native-banner">
+              <span class="ad-badge-tag">ADVERTISEMENT</span>
+              <div data-banner-id="2030631"></div>
             </div>
           </div>
 
-          <!-- Audio Format Options Grid -->
-          <div class="quality-selector-group" id="audio-quality-group" style="display: none;">
-            <label class="group-label" id="i18n-select-audio-fmt" data-i18n="selectAudioFmt">Select Audio Format & Quality:</label>
-            <div class="quality-chips-grid" id="audio-chips-container">
-              <button type="button" class="quality-chip active" data-quality="mp3">
-                <span class="q-main">MP3</span>
-                <span class="q-sub">320 kbps (High Quality)</span>
+          <!-- Video Tab Content: Direct 1-Click Download Table -->
+          <div class="tab-pane-content" id="video-tab-content">
+            <!-- Quick Download Highlight Bar -->
+            <div class="quick-download-box" id="quick-video-box">
+              <div class="quick-box-info">
+                <span class="quick-box-badge">⚡ Recommended</span>
+                <span class="quick-box-title" id="quick-video-title">Full HD 1080p (MP4)</span>
+              </div>
+              <button type="button" class="btn-quick-download" id="btn-quick-download-video">
+                <svg viewBox="0 0 24 24" class="btn-icon-sm" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+                <span>Instant Download</span>
               </button>
-              <button type="button" class="quality-chip" data-quality="m4a">
-                <span class="q-main">M4A</span>
-                <span class="q-sub">AAC Original Stream</span>
-              </button>
-              <button type="button" class="quality-chip" data-quality="wav">
-                <span class="q-main">WAV</span>
-                <span class="q-sub">Lossless Audio</span>
-              </button>
-              <button type="button" class="quality-chip" data-quality="flac">
-                <span class="q-main">FLAC</span>
-                <span class="q-sub">Studio Master Audio</span>
-              </button>
+            </div>
+
+            <div class="format-table-wrap">
+              <table class="format-table" id="video-formats-table">
+                <thead>
+                  <tr>
+                    <th>Quality / Resolution</th>
+                    <th>Format</th>
+                    <th>File Size</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="video-table-body">
+                  <!-- Dynamically populated rows with 1-Click Direct Download Buttons -->
+                </tbody>
+              </table>
             </div>
           </div>
 
-          <!-- Download Action Button -->
-          <div class="download-action-row">
-            <button id="btn-start-download" class="btn-download-big">
-              <svg viewBox="0 0 24 24" class="btn-icon" aria-hidden="true">
-                <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                  stroke-linejoin="round" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-              </svg>
-              <span id="download-btn-label" data-i18n="downloadNowVideo">Download Video (MP4)</span>
-            </button>
+          <!-- Audio Tab Content: Direct 1-Click Audio Download Table -->
+          <div class="tab-pane-content" id="audio-tab-content" style="display: none;">
+            <!-- Quick Download Audio Highlight Bar -->
+            <div class="quick-download-box audio-accent" id="quick-audio-box">
+              <div class="quick-box-info">
+                <span class="quick-box-badge badge-audio">🎵 Studio Quality</span>
+                <span class="quick-box-title" id="quick-audio-title">MP3 Audio (320 kbps High Bitrate)</span>
+              </div>
+              <button type="button" class="btn-quick-download btn-audio-action" id="btn-quick-download-audio">
+                <svg viewBox="0 0 24 24" class="btn-icon-sm" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+                <span>Download MP3</span>
+              </button>
+            </div>
+
+            <div class="format-table-wrap">
+              <table class="format-table" id="audio-formats-table">
+                <thead>
+                  <tr>
+                    <th>Audio Format</th>
+                    <th>Bitrate & Quality</th>
+                    <th>Est. Size</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="audio-table-body">
+                  <!-- Dynamically populated audio rows -->
+                </tbody>
+              </table>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -476,10 +545,13 @@
       </div>
 
       <div class="job-footer">
-        <span class="progress-percentage" id="job-progress-num">0%</span>
-        <span class="job-filename" id="job-filename-text">Processing media...</span>
+        <div class="job-footer-left">
+          <span class="progress-percentage" id="job-progress-num">0%</span>
+          <span class="job-filename" id="job-filename-text">Processing media...</span>
+        </div>
         <div class="job-success-actions" id="job-success-actions" style="display: none;">
-          <a href="#" id="btn-job-direct-download" class="btn-success-action" download data-i18n="saveFile">Save File</a>
+          <a href="#" id="btn-job-direct-download" class="btn-success-action" download data-i18n="saveFile">📥 Save File Now</a>
+          <button type="button" id="btn-job-convert-another" class="btn-secondary-action">🔄 Download Another</button>
           <button type="button" id="btn-job-close" class="btn-secondary-action" style="padding: 7px 14px;">✕</button>
         </div>
       </div>
@@ -515,6 +587,16 @@
         </div>
       </div>
     </section>
+
+    <!-- ========================================================================= -->
+    <!-- 🎯 AD SLOT 4: Mid-Content Banner (MyBid Banner 300x100 #2030632)          -->
+    <!-- ========================================================================= -->
+    <div class="ad-banner-wrapper mid-content">
+      <div id="ad-slot-mid-content" class="ad-slot-box ad-leaderboard">
+        <span class="ad-badge-tag">ADVERTISEMENT</span>
+        <div data-banner-id="2030632"></div>
+      </div>
+    </div>
 
     <!-- SECTION 2: KEY FEATURES -->
     <section class="content-section" id="section-features">
@@ -908,6 +990,19 @@
     </div>
   </footer>
 
+  <!-- ========================================================================= -->
+  <!-- 🎯 AD SLOT 5: Sticky Floating Bottom Banner (MyBid Banner 300x100 #2030632) -->
+  <!-- ========================================================================= -->
+  <div id="sticky-ad-container" class="sticky-bottom-ad-bar">
+    <div class="sticky-ad-inner">
+      <div id="ad-slot-sticky-footer" class="ad-slot-box ad-sticky">
+        <span class="ad-badge-tag">ADVERTISEMENT</span>
+        <div data-banner-id="2030632"></div>
+      </div>
+      <button type="button" id="btn-close-sticky-ad" class="btn-close-sticky" title="Dismiss advertisement">✕</button>
+    </div>
+  </div>
+
   <!-- POLICY MODAL -->
   <div class="media-modal-backdrop" id="policy-modal" style="display: none;">
     <div class="media-modal-card policy-modal-card">
@@ -924,8 +1019,28 @@
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
-  <div id="toast-container" class="toast-container"></div>
+  <!-- Ads Service Workers Registration (Monetag sw.js & MyBid 8Ynqxu.js) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+          .then(function(reg) {
+            console.log('[Monetag SW] Registered:', reg.scope);
+          })
+          .catch(function(err) {
+            console.warn('[Monetag SW] Registration failed:', err);
+          });
+
+        navigator.serviceWorker.register('/8Ynqxu.js', { scope: '/' })
+          .then(function(reg) {
+            console.log('[MyBid SW] Registered:', reg.scope);
+          })
+          .catch(function(err) {
+            console.warn('[MyBid SW] Registration failed:', err);
+          });
+      });
+    }
+  </script>
 
   <script src="/app.js"></script>
 </body>

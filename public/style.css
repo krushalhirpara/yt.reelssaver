@@ -1889,4 +1889,555 @@ body.light-theme {
   }
 }
 
+/* ========================================================================= */
+/* 🎯 AD CONTAINER & RESPONSIVE PLACEMENT ARCHITECTURE                       */
+/* Zero CLS (Cumulative Layout Shift) with IAB Standard Formats               */
+/* ========================================================================= */
+
+.ad-banner-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 18px 0;
+  clear: both;
+}
+
+.ad-banner-wrapper.top-leaderboard {
+  max-width: 1050px;
+  margin: 16px auto 0 auto;
+  padding: 0 20px;
+}
+
+.ad-banner-wrapper.in-feed {
+  margin: 20px 0;
+}
+
+.ad-banner-wrapper.in-result {
+  margin: 16px 0 20px 0;
+}
+
+.ad-banner-wrapper.mid-content {
+  margin: 36px 0;
+}
+
+/* Standard Ad Slot Box Container */
+.ad-slot-box {
+  width: 100%;
+  background: rgba(248, 250, 252, 0.6);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+.ad-slot-box:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #cbd5e1;
+}
+
+/* Specific IAB Dimensions */
+.ad-slot-box.ad-leaderboard {
+  max-width: 728px;
+  min-height: 100px;
+}
+
+.ad-slot-box.ad-responsive-banner {
+  max-width: 728px;
+  min-height: 250px;
+}
+
+.ad-slot-box.ad-native-banner {
+  width: 100%;
+  min-height: 250px;
+}
+
+.ad-slot-box.ad-sticky {
+  max-width: 728px;
+  min-height: 100px;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+/* MyBid Banners (#2030631 300x250 & #2030632 300x100) */
+[data-banner-id] {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 4px auto !important;
+  text-align: center !important;
+  max-width: 100% !important;
+}
+
+[data-banner-id="2030631"] {
+  min-width: 300px;
+  min-height: 250px;
+}
+
+[data-banner-id="2030632"] {
+  min-width: 300px;
+  min-height: 100px;
+}
+
+/* Clean Ad Badge Label */
+.ad-badge-tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: inline-block;
+  user-select: none;
+}
+
+.ad-placeholder-text {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Sticky Floating Bottom Ad Bar */
+.sticky-bottom-ad-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  padding: 8px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.sticky-bottom-ad-bar.dismissed {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sticky-ad-inner {
+  max-width: 760px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.btn-close-sticky {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 28px;
+  height: 28px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.btn-close-sticky:hover {
+  background: #fee2e2;
+  color: #ef4444;
+  border-color: #fca5a5;
+  transform: scale(1.1);
+}
+
+/* ========================================================================= */
+/* ⚡ HERO MODE PRE-SELECTOR & CLEAR BUTTON                                   */
+/* ========================================================================= */
+
+.hero-mode-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-mode-pill {
+  background: #f1f5f9;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-mode-pill:hover {
+  background: #e2e8f0;
+  color: var(--text-primary);
+}
+
+.hero-mode-pill.active {
+  background: #fff1f2;
+  border-color: rgba(255, 0, 55, 0.3);
+  color: var(--primary-red);
+  box-shadow: 0 2px 8px rgba(255, 0, 55, 0.12);
+}
+
+.pill-icon {
+  font-size: 0.95rem;
+}
+
+.btn-clear-input {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.15rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-clear-input:hover {
+  color: #ef4444;
+  background: #fee2e2;
+}
+
+/* ========================================================================= */
+/* 🎬 🎵 DIRECT 1-CLICK DOWNLOAD TABLES & QUICK DOWNLOAD BARS               */
+/* ========================================================================= */
+
+.tab-pane-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Quick Download Highlight Bar */
+.quick-download-box {
+  background: linear-gradient(135deg, rgba(255, 0, 55, 0.05) 0%, rgba(225, 29, 72, 0.1) 100%);
+  border: 1.5px solid rgba(255, 0, 55, 0.25);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(255, 0, 55, 0.06);
+}
+
+.quick-download-box.audio-accent {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.06) 0%, rgba(124, 58, 237, 0.12) 100%);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
+}
+
+.quick-box-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.quick-box-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--primary-red);
+  color: #ffffff;
+}
+
+.quick-box-badge.badge-audio {
+  background: #7c3aed;
+}
+
+.quick-box-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.btn-quick-download {
+  background: var(--primary-gradient);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-main);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(255, 0, 55, 0.3);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-quick-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 0, 55, 0.4);
+}
+
+.btn-quick-download.btn-audio-action {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+}
+
+.btn-quick-download.btn-audio-action:hover {
+  box-shadow: 0 6px 18px rgba(139, 92, 246, 0.45);
+}
+
+/* Format Table Wrap */
+.format-table-wrap {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.format-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  text-align: left;
+}
+
+.format-table th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 12px 18px;
+  border-bottom: 1.5px solid var(--border-subtle);
+}
+
+.format-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+  color: var(--text-primary);
+}
+
+.format-table tr:last-child td {
+  border-bottom: none;
+}
+
+.format-table tr:hover td {
+  background: rgba(255, 0, 55, 0.02);
+}
+
+/* Quality Badges */
+.badge-res {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.badge-4k {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.badge-2k {
+  background: #e0e7ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+}
+
+.badge-1080p {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.badge-720p {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-sd {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.badge-audio-fmt {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border: 1px solid #e9d5ff;
+}
+
+.fmt-type-tag {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.fmt-size-tag {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* Row Action Buttons */
+.btn-row-download {
+  background: var(--primary-gradient);
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(255, 0, 55, 0.25);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-row-download:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 0, 55, 0.38);
+}
+
+.btn-row-download.btn-audio {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.25);
+}
+
+.btn-row-download.btn-audio:hover {
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+}
+
+/* Active Download Success Glow */
+.job-footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-success-action {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-main);
+  font-size: 0.92rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  animation: pulseGreen 2.2s infinite ease-in-out;
+  transition: all 0.2s ease;
+}
+
+.btn-success-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+}
+
+@keyframes pulseGreen {
+  0%, 100% {
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  }
+  50% {
+    box-shadow: 0 6px 24px rgba(16, 185, 129, 0.65);
+  }
+}
+
+/* Mobile Responsiveness for Ads & Formats */
+@media (max-width: 768px) {
+  .ad-slot-box.ad-leaderboard,
+  .ad-slot-box.ad-responsive-banner,
+  .ad-slot-box.ad-sticky {
+    max-width: 320px;
+    min-height: 50px;
+  }
+  .sticky-bottom-ad-bar {
+    padding: 6px 12px;
+  }
+  .btn-close-sticky {
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+  .quick-download-box {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .quick-box-info {
+    justify-content: center;
+  }
+  .btn-quick-download {
+    width: 100%;
+    justify-content: center;
+  }
+  .format-table th, .format-table td {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+  .btn-row-download {
+    padding: 7px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+
 

@@ -99,6 +99,36 @@ app.get(["/contact", "/contact-us"], (req, res) => {
 	res.sendFile(path.join(__dirname, "public", "contact.html"));
 });
 
+// Monetag Ads Publisher Service Worker
+app.get("/sw.js", (req, res) => {
+	res.setHeader("Service-Worker-Allowed", "/");
+	res.setHeader("Content-Type", "application/javascript");
+	res.setHeader("Cache-Control", "public, max-age=3600");
+	const swPublic = path.join(__dirname, "public", "sw.js");
+	const swRoot = path.join(__dirname, "sw.js");
+	if (fs.existsSync(swPublic)) {
+		return res.sendFile(swPublic);
+	} else if (fs.existsSync(swRoot)) {
+		return res.sendFile(swRoot);
+	}
+	res.status(404).send("// sw.js not found");
+});
+
+// MyBid Ads Publisher Service Worker (#2030633 Web-Push)
+app.get("/8Ynqxu.js", (req, res) => {
+	res.setHeader("Service-Worker-Allowed", "/");
+	res.setHeader("Content-Type", "application/javascript");
+	res.setHeader("Cache-Control", "public, max-age=3600");
+	const pPublic = path.join(__dirname, "public", "8Ynqxu.js");
+	const pRoot = path.join(__dirname, "8Ynqxu.js");
+	if (fs.existsSync(pPublic)) {
+		return res.sendFile(pPublic);
+	} else if (fs.existsSync(pRoot)) {
+		return res.sendFile(pRoot);
+	}
+	res.status(404).send("// 8Ynqxu.js not found");
+});
+
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -303,6 +333,139 @@ function formatBytes(bytes) {
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 }
 
+// --- URL Sanitization & Cloud VPS Bypass Utilities ---
+
+// Normalize YouTube, Shorts, and mobile share links to clean canonical URLs
+function sanitizeMediaUrl(rawUrl) {
+	if (!rawUrl || typeof rawUrl !== "string") return "";
+	let clean = rawUrl.trim();
+	try {
+		const u = new URL(clean);
+		const host = u.hostname.toLowerCase();
+
+		// youtu.be/<id>?si=...
+		if (host.includes("youtu.be")) {
+			const id = u.pathname.slice(1).split("/")[0].split("?")[0];
+			if (id) return `https://www.youtube.com/watch?v=${id}`;
+		}
+
+		// youtube.com / m.youtube.com
+		if (host.includes("youtube.com")) {
+			// /shorts/<id>
+			if (u.pathname.includes("/shorts/")) {
+				const id = u.pathname.split("/shorts/")[1].split("/")[0].split("?")[0];
+				if (id) return `https://www.youtube.com/watch?v=${id}`;
+			}
+			// /live/<id>
+			if (u.pathname.includes("/live/")) {
+				const id = u.pathname.split("/live/")[1].split("/")[0].split("?")[0];
+				if (id) return `https://www.youtube.com/watch?v=${id}`;
+			}
+			// /watch?v=<id>
+			const v = u.searchParams.get("v");
+			if (v) {
+				return `https://www.youtube.com/watch?v=${v}`;
+			}
+		}
+	} catch (e) {}
+	return clean;
+}
+
+// Common yt-dlp arguments that prevent bot blocks on Cloud VPS / Datacenter IPs
+function getCommonYtDlpArgs(url) {
+	const args = [
+		"--no-playlist",
+		"--force-ipv4",
+		"--no-check-certificates",
+		"--geo-bypass",
+		"--socket-timeout", "30",
+		"--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+		"--add-header", "Accept-Language: en-US,en;q=0.9"
+	];
+
+	// Cookies support: check if cookies.txt exists in project root
+	const cookiesCandidates = [
+		path.join(__dirname, "cookies.txt"),
+		path.join(process.cwd(), "cookies.txt"),
+		path.join(os.homedir(), ".ytDownloader", "cookies.txt")
+	];
+	for (const cPath of cookiesCandidates) {
+		if (fs.existsSync(cPath) && fs.statSync(cPath).size > 10) {
+			args.push("--cookies", cPath);
+			break;
+		}
+	}
+
+	return args;
+}
+
+// Multi-Tier Video Metadata Extraction (Tier 1: Comprehensive Standard, Tier 2: TV Embedded Bot-Bypass, Tier 3: Android Client)
+function extractVideoInfoWithRetry(ytdlpBin, cleanUrl, ffmpegBin) {
+	return new Promise((resolve, reject) => {
+		const isYouTube = cleanUrl.toLowerCase().includes("youtu");
+
+		// Tier 1: Comprehensive standard extraction with IPv4 & clean headers (returns full 4K, 1080p, 720p & audio)
+		const tier1Args = [
+			"--dump-single-json",
+			...getCommonYtDlpArgs(cleanUrl)
+		];
+		if (ffmpegBin && fs.existsSync(ffmpegBin)) tier1Args.unshift("--ffmpeg-location", ffmpegBin);
+		tier1Args.push(cleanUrl);
+
+		execFile(ytdlpBin, tier1Args, { maxBuffer: 40 * 1024 * 1024 }, (err1, stdout1, stderr1) => {
+			if (!err1 && stdout1) {
+				try {
+					return resolve(JSON.parse(stdout1));
+				} catch (_) {}
+			}
+
+			console.warn("[Tier 1 Extraction Failed]", (stderr1 || (err1 && err1.message) || "").slice(0, 200));
+
+			if (!isYouTube) {
+				return reject(new Error(stderr1 || (err1 && err1.message) || "Extraction failed"));
+			}
+
+			// Tier 2: TV Embedded client (proven bypass for VPS/cloud datacenter IP bot detection & HTTP 429)
+			const tier2Args = [
+				"--dump-single-json",
+				...getCommonYtDlpArgs(cleanUrl),
+				"--extractor-args", "youtube:player_client=tv_embedded",
+				cleanUrl
+			];
+			if (ffmpegBin && fs.existsSync(ffmpegBin)) tier2Args.unshift("--ffmpeg-location", ffmpegBin);
+
+			execFile(ytdlpBin, tier2Args, { maxBuffer: 40 * 1024 * 1024 }, (err2, stdout2, stderr2) => {
+				if (!err2 && stdout2) {
+					try {
+						return resolve(JSON.parse(stdout2));
+					} catch (_) {}
+				}
+
+				console.warn("[Tier 2 Extraction Failed]", (stderr2 || (err2 && err2.message) || "").slice(0, 200));
+
+				// Tier 3: Android client fallback
+				const tier3Args = [
+					"--dump-single-json",
+					...getCommonYtDlpArgs(cleanUrl),
+					"--extractor-args", "youtube:player_client=android,web",
+					cleanUrl
+				];
+				if (ffmpegBin && fs.existsSync(ffmpegBin)) tier3Args.unshift("--ffmpeg-location", ffmpegBin);
+
+				execFile(ytdlpBin, tier3Args, { maxBuffer: 40 * 1024 * 1024 }, (err3, stdout3, stderr3) => {
+					if (!err3 && stdout3) {
+						try {
+							return resolve(JSON.parse(stdout3));
+						} catch (_) {}
+					}
+					const finalErr = stderr2 || stderr1 || stderr3 || (err1 && err1.message) || "Failed to extract video details.";
+					return reject(new Error(finalErr));
+				});
+			});
+		});
+	});
+}
+
 // --- API Endpoints ---
 
 // 1. Health & Status
@@ -344,12 +507,29 @@ app.get("/api/install-ytdlp", async (req, res) => {
 	}
 });
 
-// 2. Inspect Video / Playlist Metadata
+// Admin / Binary Auto-Updater (keeps yt-dlp updated against YouTube changes)
+app.get("/api/update-ytdlp", async (req, res) => {
+	try {
+		const bin = await ensureYtDlp();
+		execFile(bin, ["-U"], (err, stdout, stderr) => {
+			if (err) {
+				return res.json({ success: false, error: stderr || err.message });
+			}
+			res.json({ success: true, output: stdout.trim() });
+		});
+	} catch (e) {
+		res.status(500).json({ success: false, error: e.message });
+	}
+});
+
+// 2. Inspect Video / Playlist Metadata with Multi-Tier Fallback
 app.post("/api/info", async (req, res) => {
 	const { url } = req.body;
 	if (!url || typeof url !== "string") {
 		return res.status(400).json({ error: "Valid URL is required." });
 	}
+
+	const cleanUrl = sanitizeMediaUrl(url);
 
 	let ytdlpBin;
 	try {
@@ -362,98 +542,73 @@ app.post("/api/info", async (req, res) => {
 	}
 
 	const ffmpegBin = getFfmpegPath();
-	const args = [
-		"--dump-single-json",
-		"--no-playlist",
-		"--js-runtimes", "node",
-		url.trim()
-	];
 
-	if (ffmpegBin && (fs.existsSync(ffmpegBin) || ffmpegBin === "ffmpeg")) {
-		if (fs.existsSync(ffmpegBin)) {
-			args.unshift("--ffmpeg-location", ffmpegBin);
-		}
-	}
+	try {
+		const data = await extractVideoInfoWithRetry(ytdlpBin, cleanUrl, ffmpegBin);
 
-	execFile(ytdlpBin, args, { maxBuffer: 30 * 1024 * 1024 }, (err, stdout, stderr) => {
-		if (err) {
-			console.error("[Info Error]", stderr || err.message);
-			if (err.code === "ENOENT") {
-				return res.status(500).json({
-					error: "yt-dlp binary was not found or lacks execute permissions. Please ensure yt-dlp is installed on your Linux VPS (sudo wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp && sudo chmod a+rx /usr/local/bin/yt-dlp).",
-					details: err.message
-				});
-			}
-			return res.status(500).json({
-				error: "Failed to extract metadata. Please verify the URL or try another video.",
-				details: (stderr || err.message).slice(0, 500)
-			});
-		}
+		// Process video resolutions
+		const videoFormatsMap = new Map();
+		const audioFormatsMap = new Map();
 
-		try {
-			const data = JSON.parse(stdout);
-			
-			// Process video resolutions
-			const videoFormatsMap = new Map();
-			const audioFormatsMap = new Map();
-
-			if (Array.isArray(data.formats)) {
-				for (const f of data.formats) {
-					// Video formats
-					if (f.vcodec && f.vcodec !== "none" && f.height) {
-						const height = f.height;
-						const label = `${height}p` + (f.fps && f.fps > 30 ? ` ${f.fps}fps` : "");
-						if (!videoFormatsMap.has(height) || (f.filesize || f.filesize_approx || 0) > (videoFormatsMap.get(height).size || 0)) {
-							videoFormatsMap.set(height, {
-								height,
-								label,
-								formatId: f.format_id,
-								ext: f.ext || "mp4",
-								size: f.filesize || f.filesize_approx || null,
-								sizeStr: f.filesize || f.filesize_approx ? formatBytes(f.filesize || f.filesize_approx) : "Dynamic"
-							});
-						}
+		if (Array.isArray(data.formats)) {
+			for (const f of data.formats) {
+				// Video formats
+				if (f.vcodec && f.vcodec !== "none" && f.height) {
+					const height = f.height;
+					const label = `${height}p` + (f.fps && f.fps > 30 ? ` ${f.fps}fps` : "");
+					if (!videoFormatsMap.has(height) || (f.filesize || f.filesize_approx || 0) > (videoFormatsMap.get(height).size || 0)) {
+						videoFormatsMap.set(height, {
+							height,
+							label,
+							formatId: f.format_id,
+							ext: f.ext || "mp4",
+							size: f.filesize || f.filesize_approx || null,
+							sizeStr: f.filesize || f.filesize_approx ? formatBytes(f.filesize || f.filesize_approx) : "Dynamic"
+						});
 					}
-					// Audio formats
-					if (f.acodec && f.acodec !== "none" && (!f.vcodec || f.vcodec === "none")) {
-						const abr = Math.round(f.abr || 128);
-						const key = `${f.ext || "audio"}-${abr}`;
-						if (!audioFormatsMap.has(key)) {
-							audioFormatsMap.set(key, {
-								ext: f.ext || "m4a",
-								abr: abr,
-								label: `${abr} kbps (${(f.ext || "audio").toUpperCase()})`,
-								formatId: f.format_id,
-								size: f.filesize || f.filesize_approx || null,
-								sizeStr: f.filesize || f.filesize_approx ? formatBytes(f.filesize || f.filesize_approx) : "Dynamic"
-							});
-						}
+				}
+				// Audio formats
+				if (f.acodec && f.acodec !== "none" && (!f.vcodec || f.vcodec === "none")) {
+					const abr = Math.round(f.abr || 128);
+					const key = `${f.ext || "audio"}-${abr}`;
+					if (!audioFormatsMap.has(key)) {
+						audioFormatsMap.set(key, {
+							ext: f.ext || "m4a",
+							abr: abr,
+							label: `${abr} kbps (${(f.ext || "audio").toUpperCase()})`,
+							formatId: f.format_id,
+							size: f.filesize || f.filesize_approx || null,
+							sizeStr: f.filesize || f.filesize_approx ? formatBytes(f.filesize || f.filesize_approx) : "Dynamic"
+						});
 					}
 				}
 			}
-
-			const videoOptions = Array.from(videoFormatsMap.values()).sort((a, b) => b.height - a.height);
-			const audioOptions = Array.from(audioFormatsMap.values()).sort((a, b) => b.abr - a.abr);
-
-			res.json({
-				id: data.id,
-				title: data.title || "Untitled Video",
-				thumbnail: data.thumbnail || (data.thumbnails && data.thumbnails.length ? data.thumbnails[data.thumbnails.length - 1].url : ""),
-				uploader: data.uploader || data.channel || "Unknown Creator",
-				uploaderUrl: data.uploader_url || data.channel_url || "",
-				duration: data.duration,
-				durationStr: formatDuration(data.duration),
-				viewCount: data.view_count ? data.view_count.toLocaleString() : "N/A",
-				description: (data.description || "").slice(0, 300),
-				webpageUrl: data.webpage_url || url,
-				videoOptions,
-				audioOptions
-			});
-		} catch (parseErr) {
-			console.error("[JSON Parse Error]", parseErr);
-			res.status(500).json({ error: "Failed to parse video metadata." });
 		}
-	});
+
+		const videoOptions = Array.from(videoFormatsMap.values()).sort((a, b) => b.height - a.height);
+		const audioOptions = Array.from(audioFormatsMap.values()).sort((a, b) => b.abr - a.abr);
+
+		res.json({
+			id: data.id,
+			title: data.title || "Untitled Video",
+			thumbnail: data.thumbnail || (data.thumbnails && data.thumbnails.length ? data.thumbnails[data.thumbnails.length - 1].url : ""),
+			uploader: data.uploader || data.channel || "YouTube Creator",
+			uploaderUrl: data.uploader_url || data.channel_url || "",
+			duration: data.duration,
+			durationStr: formatDuration(data.duration),
+			viewCount: data.view_count ? data.view_count.toLocaleString() : "N/A",
+			description: (data.description || "").slice(0, 300),
+			webpageUrl: cleanUrl,
+			videoOptions,
+			audioOptions
+		});
+	} catch (err) {
+		console.error("[Info Error]", err.message);
+		res.status(500).json({
+			error: "Failed to extract metadata. Please verify the URL or try another video.",
+			details: (err.message || "").slice(0, 500)
+		});
+	}
 });
 
 // 3. YouTube Search
@@ -516,6 +671,8 @@ app.post("/api/download", async (req, res) => {
 		return res.status(503).json({ error: "Download engine is initializing. Please retry in 10-15 seconds." });
 	}
 
+	const cleanUrl = sanitizeMediaUrl(url);
+
 	const ffmpegBin = getFfmpegPath();
 	const jobId = "job_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7);
 	const isAudio = type === "audio";
@@ -526,13 +683,13 @@ app.post("/api/download", async (req, res) => {
 	const args = [
 		"--newline",
 		"--no-mtime",
-		"--js-runtimes", "node",
-		"-o", outputTemplate
+		"-o", outputTemplate,
+		...getCommonYtDlpArgs(cleanUrl)
 	];
 
 	if (ffmpegBin && (fs.existsSync(ffmpegBin) || ffmpegBin === "ffmpeg")) {
 		if (fs.existsSync(ffmpegBin)) {
-			args.push("--ffmpeg-location", ffmpegBin);
+			args.unshift("--ffmpeg-location", ffmpegBin);
 		}
 	}
 
@@ -551,7 +708,7 @@ app.post("/api/download", async (req, res) => {
 		args.push("--merge-output-format", "mp4");
 	}
 
-	args.push(url.trim());
+	args.push(cleanUrl);
 
 	console.log(`[Job ${jobId}] Starting download:`, args.join(" "));
 
