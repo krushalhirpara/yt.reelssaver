@@ -1950,8 +1950,17 @@ body.light-theme {
 }
 
 .ad-slot-box.ad-responsive-banner {
-  max-width: 728px;
+  max-width: 100%;
   min-height: 250px;
+}
+
+/* Adsterra Native Banner Container (#container-ac0325e78f35fe2bbac848252b6fed2f) */
+#container-ac0325e78f35fe2bbac848252b6fed2f {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 120px;
+  display: block !important;
+  margin: 6px auto !important;
 }
 
 .ad-slot-box.ad-native-banner {
