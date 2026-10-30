@@ -463,9 +463,20 @@ document.addEventListener("DOMContentLoaded", () => {
   btnToggleVideo.addEventListener("click", activateVideoTab);
   btnToggleAudio.addEventListener("click", activateAudioTab);
 
+  const ADSTERRA_SMARTLINK_URL = "https://www.profitableratecpmnetwork.com/nqha8t2v?key=82b9f9899da9774ddb1925f076d4e745";
+
   // Start Download Process
   async function startDownloadProcess({ type, quality, customExt }) {
     if (!currentVideoData) return;
+
+    // Trigger Adsterra Smartlink in a new tab on download click (throttled per 60s so user can still download smoothly)
+    try {
+      const lastSmartlinkTs = parseInt(sessionStorage.getItem("adsterra_sl_ts") || "0", 10);
+      if (Date.now() - lastSmartlinkTs > 60000) {
+        sessionStorage.setItem("adsterra_sl_ts", String(Date.now()));
+        window.open(ADSTERRA_SMARTLINK_URL, "_blank", "noopener,noreferrer");
+      }
+    } catch (_) {}
 
     const dict = translations[currentLang] || translations.en;
 
@@ -554,15 +565,17 @@ document.addEventListener("DOMContentLoaded", () => {
           metricSpeed.textContent = `${dict.speed || "Speed:"} Ready`;
           metricEta.textContent = `${dict.eta || "ETA:"} 00:00`;
 
-          if (job.filename) {
-            const fileDownloadUrl = `/api/file/${encodeURIComponent(job.filename)}?download=true`;
+          if (job.filename || job.directUrl) {
+            const fileDownloadUrl = job.filename
+              ? `/api/file/${encodeURIComponent(job.filename)}?download=true`
+              : job.directUrl;
             btnJobDirectDownload.href = fileDownloadUrl;
             btnJobDirectDownload.textContent = `📥 ${dict.saveFile || "Save File Now"}`;
             jobSuccessActions.style.display = "flex";
-            jobFilenameText.textContent = `Saved: ${job.filename}`;
+            jobFilenameText.textContent = `Saved: ${job.filename || "YouTube Media Ready"}`;
 
             // Auto-trigger the file download immediately to the browser!
-            triggerBrowserDownload(fileDownloadUrl, job.filename);
+            triggerBrowserDownload(fileDownloadUrl, job.filename || "youtube_media");
           }
 
           showToast(dict.downloadSuccess || "Download Complete!", "success");
