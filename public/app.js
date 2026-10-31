@@ -622,4 +622,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial setup: Apply language
   applyTranslations(currentLang);
+
+  // SEO Landing Route & Sitelinks Search Box (?url=...) Support
+  try {
+    if (window.location.pathname.includes("mp3")) {
+      const audioPill = document.getElementById("pill-mode-audio");
+      if (audioPill) audioPill.click();
+    } else if (window.location.pathname.includes("mp4") || window.location.pathname.includes("4k")) {
+      const videoPill = document.getElementById("pill-mode-video");
+      if (videoPill) videoPill.click();
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const queryUrl = params.get("url");
+    if (queryUrl && mediaUrlInput) {
+      mediaUrlInput.value = queryUrl.trim();
+      if (btnClearUrl) btnClearUrl.style.display = "flex";
+      inspectMediaUrl(queryUrl.trim());
+    }
+  } catch (_) {}
 });

@@ -7,13 +7,59 @@ const { spawn, execFile, exec } = require("child_process");
 
 const app = express();
 const PORT = process.env.PORT || 5050;
+const DEFAULT_SITE_URL = "https://yt.reelssaver.com";
 
+app.enable("trust proxy");
 app.use(cors());
 app.use(express.json());
 
-// Dynamic Sitemap generator with current Host / Domain
+function resolveCanonicalHost(req) {
+	if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/+$/, "");
+	const hostHeader = req.get("host") || "yt.reelssaver.com";
+	if (hostHeader.includes("localhost") || hostHeader.includes("127.0.0.1")) {
+		return DEFAULT_SITE_URL;
+	}
+	const proto = req.headers["x-forwarded-proto"] ? req.headers["x-forwarded-proto"].split(",")[0].trim() : (req.protocol || "https");
+	return `${proto === "http" && !hostHeader.includes("localhost") ? "https" : proto}://${hostHeader}`;
+}
+
+// High-Volume Keyword SEO Landing Pages Configuration
+const SEO_LANDING_PAGES = {
+	"/youtube-video-downloader": {
+		title: "YouTube Video Downloader - Download YouTube Videos Free in 4K & 1080p MP4 | yt.reelssaver",
+		description: "Free Online YouTube Video Downloader by yt.reelssaver. Download any YouTube video in 4K UHD, 1440p, 1080p Full HD 60fps MP4 or 320kbps MP3 audio instantly without software.",
+		h1: "YouTube Video Downloader",
+		subtitle: "Download Any YouTube Video in 4K UHD, 1080p Full HD MP4 & 320kbps MP3 for Free"
+	},
+	"/youtube-shorts-downloader": {
+		title: "YouTube Shorts Downloader - Download YouTube Shorts in Full HD MP4 Free | yt.reelssaver",
+		description: "Download YouTube Shorts in 1080p Full HD MP4 without watermark! Fast, free & unlimited online YouTube Shorts Saver for Android, iPhone, PC & Mac on yt.reelssaver.",
+		h1: "YouTube Shorts Downloader",
+		subtitle: "Save YouTube Shorts Videos in 1080p Full HD MP4 Without Watermark Instantly"
+	},
+	"/youtube-to-mp3": {
+		title: "YouTube to MP3 Converter - Convert YouTube Videos to 320kbps MP3 Free | yt.reelssaver",
+		description: "Convert YouTube videos and music to studio-quality 320kbps MP3, M4A, WAV & FLAC audio in seconds. 100% Free, fast & unlimited YouTube to MP3 Converter on yt.reelssaver.",
+		h1: "YouTube to MP3 Converter (320kbps)",
+		subtitle: "Extract Crystal-Clear 320kbps MP3, M4A & Lossless WAV Audio from Any YouTube Video"
+	},
+	"/youtube-to-mp4": {
+		title: "YouTube to MP4 Converter - Download YouTube Videos to MP4 HD & 4K | yt.reelssaver",
+		description: "Convert and download YouTube videos to MP4 in 1080p Full HD, 4K UHD, and 720p with full audio sound. Fast & free online YouTube to MP4 Converter by yt.reelssaver.",
+		h1: "YouTube to MP4 Converter",
+		subtitle: "Convert & Save YouTube Videos to High-Definition MP4 (1080p, 2K & 4K UHD)"
+	},
+	"/4k-youtube-downloader": {
+		title: "4K YouTube Video Downloader - Download 4K UHD 2160p 60fps Videos Free | yt.reelssaver",
+		description: "Download true 4K Ultra HD (2160p) and 2K QHD (1440p) YouTube videos with synchronized high-bitrate audio. Free online 4K YouTube Video Downloader on yt.reelssaver.",
+		h1: "4K YouTube Video Downloader",
+		subtitle: "Download True 4K Ultra HD (2160p) & 1080p 60fps YouTube Videos with Full Audio"
+	}
+};
+
+// Dynamic Sitemap generator with all SEO Landing Pages & Policy Routes
 app.get("/sitemap.xml", (req, res) => {
-	const host = process.env.SITE_URL || `${req.protocol}://${req.get("host")}`;
+	const host = resolveCanonicalHost(req);
 	const today = new Date().toISOString().split("T")[0];
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -27,8 +73,39 @@ app.get("/sitemap.xml", (req, res) => {
     <priority>1.0</priority>
     <image:image>
       <image:loc>${host}/icon.png</image:loc>
-      <image:title>yt.reelssaver - Download YouTube Videos Now &amp; YouTube Shorts Downloader (4K MP4 &amp; MP3)</image:title>
+      <image:title>yt.reelssaver - YouTube Video Downloader &amp; YouTube Shorts Downloader (4K MP4 &amp; MP3)</image:title>
     </image:image>
+  </url>
+  <!-- SEO Keyword Landing Pages -->
+  <url>
+    <loc>${host}/youtube-video-downloader</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>${host}/youtube-shorts-downloader</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>${host}/youtube-to-mp3</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>${host}/youtube-to-mp4</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>${host}/4k-youtube-downloader</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
   </url>
   <!-- Privacy Policy -->
   <url>
@@ -65,9 +142,14 @@ app.get("/sitemap.xml", (req, res) => {
 
 // Dynamic Robots.txt generator
 app.get("/robots.txt", (req, res) => {
-	const host = process.env.SITE_URL || `${req.protocol}://${req.get("host")}`;
+	const host = resolveCanonicalHost(req);
 	const robots = `User-agent: *
 Allow: /
+Allow: /youtube-video-downloader
+Allow: /youtube-shorts-downloader
+Allow: /youtube-to-mp3
+Allow: /youtube-to-mp4
+Allow: /4k-youtube-downloader
 Allow: /privacy-policy
 Allow: /terms-of-service
 Allow: /dmca
@@ -80,6 +162,35 @@ Sitemap: ${host}/sitemap.xml
 `;
 	res.header("Content-Type", "text/plain");
 	res.send(robots);
+});
+
+// Serve Dynamic SEO Keyword Landing Pages with Server-Side Rendered Meta & H1
+Object.keys(SEO_LANDING_PAGES).forEach((routePath) => {
+	app.get(routePath, (req, res) => {
+		const seo = SEO_LANDING_PAGES[routePath];
+		const host = resolveCanonicalHost(req);
+		const fullUrl = `${host}${routePath}`;
+		const indexPath = path.join(__dirname, "public", "index.html");
+		try {
+			let html = fs.readFileSync(indexPath, "utf8");
+			html = html
+				.replace(/<title>[\s\S]*?<\/title>/i, `<title>${seo.title}</title>`)
+				.replace(/<meta name="title" content="[^"]*">/i, `<meta name="title" content="${seo.title}">`)
+				.replace(/<meta name="description"\s+content="[^"]*">/i, `<meta name="description" content="${seo.description}">`)
+				.replace(/<link rel="canonical" id="canonical-url" href="[^"]*">/i, `<link rel="canonical" id="canonical-url" href="${fullUrl}">`)
+				.replace(/<meta property="og:url" content="[^"]*">/i, `<meta property="og:url" content="${fullUrl}">`)
+				.replace(/<meta property="og:title" content="[^"]*">/i, `<meta property="og:title" content="${seo.title}">`)
+				.replace(/<meta property="og:description"\s+content="[^"]*">/i, `<meta property="og:description" content="${seo.description}">`)
+				.replace(/<meta name="twitter:url" content="[^"]*">/i, `<meta name="twitter:url" content="${fullUrl}">`)
+				.replace(/<meta name="twitter:title" content="[^"]*">/i, `<meta name="twitter:title" content="${seo.title}">`)
+				.replace(/<h1 class="card-title" id="i18n-hero-title" data-i18n="heroTitle">[\s\S]*?<\/h1>/i, `<h1 class="card-title" id="i18n-hero-title">${seo.h1}</h1>`)
+				.replace(/<p class="card-subtitle" id="i18n-hero-subtitle" data-i18n="heroSubtitle">[\s\S]*?<\/p>/i, `<p class="card-subtitle" id="i18n-hero-subtitle">${seo.subtitle}</p>`);
+			res.setHeader("Content-Type", "text/html; charset=utf-8");
+			res.send(html);
+		} catch (e) {
+			res.sendFile(indexPath);
+		}
+	});
 });
 
 // Dedicated Legal & Policy Page Routes

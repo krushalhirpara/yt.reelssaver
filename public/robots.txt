@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
+Allow: /youtube-video-downloader
+Allow: /youtube-shorts-downloader
+Allow: /youtube-to-mp3
+Allow: /youtube-to-mp4
+Allow: /4k-youtube-downloader
 Allow: /privacy-policy
 Allow: /terms-of-service
 Allow: /dmca
