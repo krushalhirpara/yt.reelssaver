@@ -221,9 +221,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnJobConvertAnother = document.getElementById("btn-job-convert-another");
   const btnJobClose = document.getElementById("btn-job-close");
 
-  // Sticky Bottom Ad Dismiss
-  const stickyAdContainer = document.getElementById("sticky-ad-container");
-  const btnCloseStickyAd = document.getElementById("btn-close-sticky-ad");
+  // Sticky Floating Bottom Bar Dismiss
+  const stickyAdContainer = document.getElementById("floating-bottom-bar") || document.getElementById("sticky-ad-container");
+  const btnCloseStickyAd = document.getElementById("btn-close-floating-bar") || document.getElementById("btn-close-sticky-ad");
   if (sessionStorage.getItem("ad_sticky_dismissed") === "1" && stickyAdContainer) {
     stickyAdContainer.classList.add("dismissed");
   }

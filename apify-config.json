@@ -2,7 +2,7 @@
   "actorId": "UUhJDfKJT2SsXdclR",
   "actorName": "streamers/youtube-video-downloader",
   "actorConsoleUrl": "https://console.apify.com/actors/UUhJDfKJT2SsXdclR/input?addFromActorId=UUhJDfKJT2SsXdclR",
-  "apiToken": "",
+  "apiToken": "apify_api_jst5AyIyj3tdRXysfwQ0p1N5jwT7Kw0t0alP",
   "useApifyPrimary": true,
   "defaultQuality": "720p",
   "defaultFormat": "mp4"

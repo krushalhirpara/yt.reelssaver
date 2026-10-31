@@ -130,7 +130,17 @@ app.get("/8Ynqxu.js", (req, res) => {
 });
 
 app.use("/assets", express.static(path.join(__dirname, "assets")));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), {
+	etag: false,
+	lastModified: false,
+	setHeaders: (res, filePath) => {
+		if (filePath.endsWith(".html") || filePath.endsWith(".css") || filePath.endsWith(".js")) {
+			res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+			res.setHeader("Pragma", "no-cache");
+			res.setHeader("Expires", "0");
+		}
+	}
+}));
 
 const DOWNLOADS_DIR = path.join(__dirname, "downloads");
 if (!fs.existsSync(DOWNLOADS_DIR)) {

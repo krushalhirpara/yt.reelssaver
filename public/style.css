@@ -1890,10 +1890,11 @@ body.light-theme {
 }
 
 /* ========================================================================= */
-/* 🎯 AD CONTAINER & RESPONSIVE PLACEMENT ARCHITECTURE                       */
-/* Zero CLS (Cumulative Layout Shift) with IAB Standard Formats               */
+/* 🎯 PROMO SHOWCASE & NATIVE BANNER PLACEMENT ARCHITECTURE                  */
+/* Adblock-Safe Neutral Selectors + Responsive Native Grid & Smartlink Cards */
 /* ========================================================================= */
 
+.promo-showcase-wrap,
 .ad-banner-wrapper {
   width: 100%;
   display: flex;
@@ -1903,76 +1904,86 @@ body.light-theme {
   clear: both;
 }
 
+.promo-showcase-wrap.top-showcase,
 .ad-banner-wrapper.top-leaderboard {
   max-width: 1050px;
   margin: 16px auto 0 auto;
   padding: 0 20px;
 }
 
+.promo-showcase-wrap.feed-showcase,
 .ad-banner-wrapper.in-feed {
-  margin: 20px 0;
+  margin: 22px 0;
 }
 
+.promo-showcase-wrap.result-showcase,
 .ad-banner-wrapper.in-result {
   margin: 16px 0 20px 0;
 }
 
+.promo-showcase-wrap.mid-showcase,
 .ad-banner-wrapper.mid-content {
   margin: 36px 0;
 }
 
-/* Standard Ad Slot Box Container */
+/* Standard Showcase Panel Container */
+.promo-panel-card,
 .ad-slot-box {
   width: 100%;
-  background: rgba(248, 250, 252, 0.6);
+  background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: visible;
-  padding: 8px 12px;
+  padding: 14px 16px;
   box-sizing: border-box;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
   transition: all 0.25s ease;
 }
 
+.promo-panel-card:hover,
 .ad-slot-box:hover {
-  background: rgba(255, 255, 255, 0.95);
   border-color: #cbd5e1;
+  box-shadow: 0 6px 22px rgba(15, 23, 42, 0.07);
 }
 
-/* Specific IAB Dimensions */
+.promo-panel-card.panel-wide,
 .ad-slot-box.ad-leaderboard {
-  max-width: 728px;
-  min-height: 100px;
+  max-width: 100%;
+  min-height: 90px;
 }
 
+.promo-panel-card.panel-grid-box,
 .ad-slot-box.ad-responsive-banner {
   max-width: 100%;
-  min-height: 250px;
+  min-height: 180px;
 }
 
 /* Adsterra Native Banner Container (#container-ac0325e78f35fe2bbac848252b6fed2f) */
 #container-ac0325e78f35fe2bbac848252b6fed2f {
   width: 100% !important;
   max-width: 100% !important;
-  min-height: 120px;
   display: block !important;
-  margin: 6px auto !important;
+  margin: 4px auto !important;
 }
 
+.promo-panel-card.panel-inline-box,
 .ad-slot-box.ad-native-banner {
   width: 100%;
-  min-height: 250px;
+  min-height: 90px;
 }
 
+.promo-panel-card.panel-float-box,
 .ad-slot-box.ad-sticky {
-  max-width: 728px;
-  min-height: 100px;
+  max-width: 820px;
+  width: 100%;
   border: none;
   background: transparent;
+  box-shadow: none;
   padding: 0;
 }
 
@@ -1981,43 +1992,229 @@ body.light-theme {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  margin: 4px auto !important;
+  margin: 2px auto !important;
   text-align: center !important;
   max-width: 100% !important;
 }
 
-[data-banner-id="2030631"] {
-  min-width: 300px;
-  min-height: 250px;
-}
-
-[data-banner-id="2030632"] {
-  min-width: 300px;
-  min-height: 100px;
-}
-
-/* Clean Ad Badge Label */
+/* Clean Sponsored Tag Pill */
+.promo-tag-pill,
 .ad-badge-tag {
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 1.2px;
-  color: #94a3b8;
-  background: rgba(148, 163, 184, 0.12);
-  padding: 2px 8px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 3px 9px;
   border-radius: 4px;
   text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   display: inline-block;
   user-select: none;
 }
 
-.ad-placeholder-text {
-  font-size: 0.82rem;
-  color: #94a3b8;
+/* Wide Smartlink Banner Card (Top, Mid, In-Result & Sticky) */
+.smart-banner-wide {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #f8fafc 100%);
+  border: 1.5px solid rgba(255, 0, 55, 0.22);
+  text-decoration: none;
+  color: #0f172a;
+  transition: all 0.22s ease;
+  box-sizing: border-box;
+}
+
+.smart-banner-wide:hover {
+  transform: translateY(-2px);
+  border-color: #ff0037;
+  box-shadow: 0 8px 22px rgba(255, 0, 55, 0.14);
+}
+
+.smart-banner-wide.compact {
+  padding: 11px 16px;
+}
+
+.smart-banner-wide.sticky-compact {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-color: rgba(255, 0, 55, 0.45);
+  color: #ffffff;
+}
+
+.smart-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.smart-live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+  flex-shrink: 0;
+}
+
+.smart-banner-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+.smart-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.smart-banner-text strong {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: inherit;
+}
+
+.smart-banner-text span {
+  font-size: 0.8rem;
+  color: #475569;
   font-weight: 500;
 }
 
-/* Sticky Floating Bottom Ad Bar */
+.smart-banner-wide.sticky-compact .smart-banner-text span {
+  color: #cbd5e1;
+}
+
+.smart-banner-cta {
+  background: var(--primary-gradient);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.86rem;
+  padding: 9px 18px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(255, 0, 55, 0.3);
+  flex-shrink: 0;
+}
+
+/* 3-Column Native Banner Smart Grid */
+.native-smart-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.native-smart-card {
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #0f172a;
+  transition: all 0.25s ease;
+}
+
+.native-smart-card:hover {
+  transform: translateY(-3px);
+  background: #ffffff;
+  border-color: #ff0037;
+  box-shadow: 0 8px 20px rgba(255, 0, 55, 0.12);
+}
+
+.native-card-thumb {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.thumb-grad-1 {
+  background: linear-gradient(135deg, #ff0037 0%, #fb7185 100%);
+}
+
+.thumb-grad-2 {
+  background: linear-gradient(135deg, #7c3aed 0%, #38bdf8 100%);
+}
+
+.thumb-grad-3 {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+}
+
+.native-card-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(15, 23, 42, 0.78);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.native-card-emoji {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+}
+
+.native-card-body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.native-card-title {
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.native-card-sub {
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.native-card-btn {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ff0037;
+  background: #fff1f2;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 0, 55, 0.2);
+}
+
+/* Sticky Floating Bottom Bar */
+.floating-bottom-bar,
 .sticky-bottom-ad-bar {
   position: fixed;
   bottom: 0;
@@ -2035,14 +2232,16 @@ body.light-theme {
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
+.floating-bottom-bar.dismissed,
 .sticky-bottom-ad-bar.dismissed {
   transform: translateY(100%);
   opacity: 0;
   pointer-events: none;
 }
 
+.floating-bar-inner,
 .sticky-ad-inner {
-  max-width: 760px;
+  max-width: 820px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -2050,6 +2249,7 @@ body.light-theme {
   position: relative;
 }
 
+.btn-close-floating,
 .btn-close-sticky {
   position: absolute;
   top: -12px;
@@ -2071,6 +2271,7 @@ body.light-theme {
   z-index: 10;
 }
 
+.btn-close-floating:hover,
 .btn-close-sticky:hover {
   background: #fee2e2;
   color: #ef4444;
@@ -2410,15 +2611,29 @@ body.light-theme {
 
 /* Mobile Responsiveness for Ads & Formats */
 @media (max-width: 768px) {
-  .ad-slot-box.ad-leaderboard,
-  .ad-slot-box.ad-responsive-banner,
-  .ad-slot-box.ad-sticky {
-    max-width: 320px;
-    min-height: 50px;
+  .native-smart-grid {
+    grid-template-columns: 1fr;
   }
+  .smart-banner-wide {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 12px 14px;
+  }
+  .smart-banner-left {
+    justify-content: center;
+  }
+  .smart-banner-text {
+    text-align: center;
+  }
+  .smart-banner-cta {
+    text-align: center;
+  }
+  .floating-bottom-bar,
   .sticky-bottom-ad-bar {
     padding: 6px 12px;
   }
+  .btn-close-floating,
   .btn-close-sticky {
     top: -8px;
     right: -8px;
